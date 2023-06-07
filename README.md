@@ -21,7 +21,7 @@ For each transaction we will send you a JSON-RPC 2.0 request with the method nam
 <details>
   <summary>Example</summary>
   
-```json
+```js
 method: "nectar_auctionTransaction",
  data: {
    hash: "0x5ea6f0b95294445c004e4769926770825518d02e06304e4106ea6568a2d12f3b",
@@ -55,7 +55,7 @@ A successful bid will contain both the MEV transaction and the bid amount. Send 
 <details>
   <summary>Example</summary>
 
-```json
+```js
  method: "nectar_bidTransaction",
  data: {
    hash: "0x5ea6f0b95294445c004e4769926770825518d02e06304e4106ea6568a2d12f3b",
