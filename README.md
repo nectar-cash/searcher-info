@@ -1,22 +1,29 @@
-# Arbitrum Searchers - How to connect to Nectar
+# Nectar: Searcher cheat sheet
 
 ---
 
-Nectar has created a private transaction mempool where we can auction off MEV extraction rights to the highest bidder. This is an early version and a work in progress.
+Nectar has created a private transaction mempool where we auction off MEV extraction rights to the highest bidder. This is an early version and a work in progress.
 
 ## How to connect to the auction house
 
 ---
 
-To connect to the auction house you will need an Auth token, currently this is a manual process, please email us at searchers@nectar.cash
+For searchers authentication we use a variation of [basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) flow. To connect to our auction house you will need an authorization token. If you do not have one already then please email [searchers@nectar.cash](mailto:searchers@nectar.cash)
+​
+Once you have the token you can open up a websocket connection to the auction house at **3.76.2.18:8000**
+​
+Make sure to add the `Authorization` header to your request:
+​
 
-_TODO: add technical details of how to connect here_
+```http
+Authorization: Basic your_auhorization_token
+```
 
 ## What we will send you
 
 ---
 
-For each transaction we will send you a JSON-RPC 2.0 request with the method name `nectar_auctionTransaction`. The `data` parameter will contain the transaction `hash` along with `txWithoutSignature` which contains all the usual paramters you'd find in an `eth_sendTransaction` call (without the signature). There is also an `options` parameter, currently this only contains the Unix timestamp that the auction will close.
+Once connected to the auction house you will receive a [JSON-RPC 2.0](https://www.jsonrpc.org/specification) notification with the method name `nectar_auctionTransaction` for each transaction that is being auctioned. The `data` parameter will contain the transaction `hash` which we use from now on to identify this auction, along with `txWithoutSignature` which contains all the usual paramters you'd find in an `eth_sendTransaction` call (without the signature). There is also an `options` parameter, currently this only contains the Unix timestamp that the auction will end.
 
 <details>
   <summary>Example</summary>
@@ -42,7 +49,7 @@ method: "nectar_auctionTransaction",
    },
    options: { closeTimestamp: 1628580000 },
  }
-````
+```
 
 </details>
 
@@ -50,7 +57,7 @@ method: "nectar_auctionTransaction",
 
 ---
 
-A successful bid will contain both the MEV transaction and the bid amount. Send to us a JSON-RPC 2.0 request with the method name `nectar_bidTransaction`. There should be a `data` parameter which contains both the original transaction `hash` and the complete transaction `tx` you wish to submit (including signature). There should also be a `bid` parameter which is the ETH price in wei you are willing to pay to have this transaction executed.
+A successful bid will contain both your MEV transaction and the bid amount. Send to us a JSON-RPC 2.0 request with the method name `nectar_bidTransaction`. There should be a `data` parameter which contains both the original transaction `hash` and the complete transaction `tx` you wish to submit (including signature). There should also be a `bid` parameter which is the ETH price in wei you are willing to pay to have this transaction executed.
 
 <details>
   <summary>Example</summary>
@@ -79,6 +86,28 @@ A successful bid will contain both the MEV transaction and the bid amount. Send 
    },
    bid: "123456789",
  }
+```
+
+</details>
+
+## What happens next
+
+---
+
+At the end of the auction we will forward the users transaction and the auction winning transaction to the sequencer in quick sucsession. We will then send out a notification with the method `nectar_auctionResult` which will contain the `hash` of the original transaction (for identification), the `winner` which is the hash of the winning transaction, along with the winning `bid` amount.
+
+Periodically we will send instructions for making the payment to cover your winning bids, failure to make payments in a timely manner will mean revokation of your Auth key.
+
+<details>
+  <summary>Example</summary>
+
+```js
+  method: "nectar_auctionResult",
+  params: {
+    hash: "0x5ea6f0b95294445c004e4769926770825518d02e06304e4106ea6568a2d12f3b",
+    winner: "0x074c6af40a9173af6214a57405b9e2dbf8b63ddf05a6100a7b54f78ee42b727b",
+    bid: "123456789",
+  }
 ```
 
 </details>
