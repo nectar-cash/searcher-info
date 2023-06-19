@@ -25,7 +25,7 @@ Authorization: Basic your_auhorization_token
 
 ---
 
-Once connected to the auction house you will receive a [JSON-RPC 2.0](https://www.jsonrpc.org/specification) notification with the method name `nectar_auctionTransaction` for each transaction that is being auctioned. The `data` parameter will contain the transaction `hash` which we use from now on to identify this auction, along with `txWithoutSignature` which contains all the usual paramters you'd find in an `eth_sendTransaction` call (without the signature). There is also an `options` parameter, currently this only contains the Unix timestamp that the auction will end.
+Once connected to the auction house you will receive a [JSON-RPC 2.0](https://www.jsonrpc.org/specification) notification with the method name `nectar_auctionTransaction` for each transaction that is being auctioned. The `params` parameter will contain the transaction `hash` which we use from now on to identify this auction, along with `txWithoutSignature` which contains all the usual paramters you'd find in an `eth_sendTransaction` call (without the signature). There is also an `options` parameter, currently this only contains the Unix timestamp that the auction will end.
 
 <details>
   <summary>Example</summary>
@@ -63,7 +63,7 @@ Once connected to the auction house you will receive a [JSON-RPC 2.0](https://ww
 
 ---
 
-A successful bid will contain both your MEV transaction and the bid amount. Send to us a JSON-RPC 2.0 request with the method name `nectar_bidTransaction`. There should be a `data` parameter which contains both the original transaction `hash` and the complete transaction `tx` you wish to submit (including signature). There should also be a `bid` parameter which is the ETH price in wei you are willing to pay to have this transaction executed.
+A successful bid will contain both your MEV transaction and the bid amount. Send to us a JSON-RPC 2.0 request with the method name `nectar_bidTransaction`. There should be a `params` parameter which contains both the original transaction `hash` and the complete transaction `tx` you wish to submit (including signature). There should also be a `bid` parameter which is the ETH price in wei you are willing to pay to have this transaction executed.
 
 <details>
   <summary>Example</summary>
