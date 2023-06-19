@@ -10,7 +10,9 @@ Nectar has created a private transaction mempool where we auction off MEV extrac
 
 For searchers authentication we use a variation of [basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) flow. To connect to our auction house you will need an authorization token. If you do not have one already then please email [searchers@nectar.cash](mailto:searchers@nectar.cash)
 ​
-Once you have the token you can open up a websocket connection to the auction house at **3.76.2.18:8000**
+
+Once you have the token you can open up a websocket connection to the auction house at **auction.nectar.cash:8000**
+
 ​
 Make sure to add the `Authorization` header to your request:
 ​
