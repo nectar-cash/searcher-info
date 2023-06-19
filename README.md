@@ -2,7 +2,7 @@
 
 ---
 
-Nectar has created a private transaction mempool where we auction off MEV extraction rights to the highest bidder. This is an early version and a work in progress.
+Nectar.cash is working on returning MEV back to users. To begin we are working on Arbitrum and currently have access to appox 60k transactions/day. We have created a private transaction mempool where we auction off MEV extraction rights to the highest bidder. This is an early version and a work in progress.
 
 ## How to connect to the auction house
 
