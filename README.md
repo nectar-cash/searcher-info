@@ -28,28 +28,30 @@ Once connected to the auction house you will receive a [JSON-RPC 2.0](https://ww
 <details>
   <summary>Example</summary>
   
-```js
+```json
 method: "nectar_auctionTransaction",
- data: {
-   hash: "0x5ea6f0b95294445c004e4769926770825518d02e06304e4106ea6568a2d12f3b",
-   txWithioutSignature: {
-     to: "0x09E18590E8f76b6Cf471b3cd75fE1A1a9D2B2c2b",
-     from: "0x900984F781c7D0108119EBFD90A2c4d9ff43B103",
-     value: { _hex: "0x00", _isBigNumber: true },
-     gasLimit: { _hex: "0x2464d6", _isBigNumber: true },
-     maxPriorityFeePerGas: { _hex: "0x00", _isBigNumber: true },
-     maxFeePerGas: { _hex: "0x080befc0", _isBigNumber: true },
-     nonce: 40,
-     type: 2,
-     chainId: 42161,
-     data: "0xa9059cbb00000000000000000000000036cff8a90e1cb657728e7df1166fb429789782b7000000000000000000000000000000000000000000000000000467c5ff858000",
-     hash: "0x5ea6f0b95294445c004e4769926770825518d02e06304e4106ea6568a2d12f3b",
-     gasPrice: null,
-     accessList: [],
-   },
-   options: { closeTimestamp: 1628580000 },
- }
-```
+jsonrpc: "2.0",
+params: {
+  hash: "0x5ea6f0b95294445c004e4769926770825518d02e06304e4106ea6568a2d12f3b",
+  txWithioutSignature: {
+    to: "0x09E18590E8f76b6Cf471b3cd75fE1A1a9D2B2c2b",
+    from: "0x900984F781c7D0108119EBFD90A2c4d9ff43B103",
+    value: { \_hex: "0x00", \_isBigNumber: true },
+    gasLimit: { \_hex: "0x2464d6", \_isBigNumber: true },
+    maxPriorityFeePerGas: { \_hex: "0x00", \_isBigNumber: true },
+    maxFeePerGas: { \_hex: "0x080befc0", \_isBigNumber: true },
+    nonce: 40,
+    type: 2,
+    chainId: 42161,
+    data: "0xa9059cbb00000000000000000000000036cff8a90e1cb657728e7df1166fb429789782b7000000000000000000000000000000000000000000000000000467c5ff858000",
+    hash: "0x5ea6f0b95294445c004e4769926770825518d02e06304e4106ea6568a2d12f3b",
+    gasPrice: null,
+    accessList: [],
+  },
+  options: { closeTimestamp: 1628580000 },
+}
+
+````
 
 </details>
 
@@ -62,9 +64,10 @@ A successful bid will contain both your MEV transaction and the bid amount. Send
 <details>
   <summary>Example</summary>
 
-```js
+```json
  method: "nectar_bidTransaction",
- data: {
+ jsonrpc: "2.0",
+ params: {
    hash: "0x5ea6f0b95294445c004e4769926770825518d02e06304e4106ea6568a2d12f3b",
    tx: {
      to: "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
@@ -86,7 +89,7 @@ A successful bid will contain both your MEV transaction and the bid amount. Send
    },
    bid: "123456789",
  }
-```
+````
 
 </details>
 
@@ -101,8 +104,9 @@ Periodically we will send instructions for making the payment to cover your winn
 <details>
   <summary>Example</summary>
 
-```js
+```json
   method: "nectar_auctionResult",
+  jsonrpc: "2.0",
   params: {
     hash: "0x5ea6f0b95294445c004e4769926770825518d02e06304e4106ea6568a2d12f3b",
     winner: "0x074c6af40a9173af6214a57405b9e2dbf8b63ddf05a6100a7b54f78ee42b727b",
